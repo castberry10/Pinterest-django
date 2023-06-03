@@ -1,3 +1,1 @@
 # Pinterest-django
-
-back - django
