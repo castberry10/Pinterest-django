@@ -8,23 +8,37 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
+
+use django-environ
 """
 
-import os
+# import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
+'''
+'''
+#####################
+import os
+import environ
+from pathlib import Path
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'o)caaf%ylk_$4xmz^0l=(odzw+q+z70)_ilq1**6yl&&ee$mx_'
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+env = environ.Env(DEBUG=(bool, True))
 
+
+environ.Env.read_env(
+    env_file=os.path.join(BASE_DIR, '.env')
+)
+
+
+SECRET_KEY = env('SECRET_KEY')
+
+DEBUG = env('DEBUG')
+## ################
 ALLOWED_HOSTS = ['*']
 
 
