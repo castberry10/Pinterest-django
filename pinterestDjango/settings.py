@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 use django-environ
 """
 
+from django.urls import reverse, reverse_lazy
 # import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -139,3 +140,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+
+LOGIN_REDIRECT_URL = reverse_lazy('accountapp:hello_world')
+LOGOUT_REDIRECT_URL = reverse_lazy('accountapp:login')
