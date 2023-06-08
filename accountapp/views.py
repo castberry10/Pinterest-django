@@ -3,10 +3,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 from accountapp.models import HelloWorld
 from django.urls import reverse, reverse_lazy
 # from django.http import HttpResponse
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, UpdateView
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
+from accountapp.forms import AccountUpdateForm
 def hello_world(request):
     if request.method == "POST":
         temp = request.POST.get('hello_world_input')  # 리퀘스트에서 Post 중에서 hello_world_input라는 데이터를 가져와라..
@@ -32,3 +33,9 @@ class AccountDetailView(DetailView):
     model = User
     context_object_name = 'target_user'
     template_name = 'accountapp/detail.html'
+    
+class AccountUpdateView(UpdateView):
+    model = User
+    form_class = AccountUpdateForm
+    success_url = reverse_lazy('accountapp:hello_world')
+    template_name = 'accountapp/update.html' 
